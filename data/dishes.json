@@ -1,0 +1,21 @@
+[
+  {
+    "id": "5",
+    "name": "Цезарь",
+    "price": 43,
+    "preparationTimeMinutes": 15,
+    "ingredientIds": [
+      "Tomato",
+      "ing_miah44ujufa39osx"
+    ]
+  },
+  {
+    "id": "dish_mic4doxpw0hylkkj",
+    "name": "Хліб",
+    "price": 30,
+    "preparationTimeMinutes": 15,
+    "ingredientIds": [
+      "ing_mic4doxgpz0u7ses"
+    ]
+  }
+]

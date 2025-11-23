@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ord_mic4doy00ih52r08",
+    "tableNumber": 1,
+    "items": [
+      {
+        "dishId": "dish_mic4doxpw0hylkkj",
+        "quantity": 2
+      }
+    ],
+    "totalPrice": 60,
+    "createdAt": "2025-11-23T19:37:23.592Z"
+  }
+]

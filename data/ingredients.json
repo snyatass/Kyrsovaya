@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "Помідор",
+    "description": "",
+    "isAvailable": true
+  },
+  {
+    "id": "ing_mic4dox783jqcgqo",
+    "name": "Сир",
+    "description": "Твердий сир",
+    "isAvailable": true
+  },
+  {
+    "id": "ing_mic4doxgpz0u7ses",
+    "name": "Тісто",
+    "description": "",
+    "isAvailable": true
+  }
+]

@@ -1,16 +1,60 @@
-
 import { DishService } from '../src/bll/DishService';
-import { IngredientService } from '../src/bll/IngredientService';
+import { Dish } from '../src/models/Dish';
+import { Ingredient } from '../src/models/Ingredient';
+import { ValidationError } from '../src/bll/errors';
 
-describe('DishService', () => {
-  const ingredientService = new IngredientService();
-  const dishService = new DishService();
+const mockDishRepo = {
+  loadAll: jest.fn(),
+  saveAll: jest.fn()
+};
 
-  it('creates dish with valid data', () => {
-    const ing = ingredientService.addIngredient('Сир', 'Твердий сир');
-    const dish = dishService.addDish('Піцца Маргарита', 150, 20, [ing.id]);
-    expect(dish.id).toBeDefined();
-    expect(dish.name).toBe('Піцца Маргарита');
-    expect(dish.price).toBe(150);
+const mockIngRepo = {
+  loadAll: jest.fn(),
+  saveAll: jest.fn()
+};
+
+describe('DishService (Unit Tests with Mocks)', () => {
+  let dishService: DishService;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    dishService = new DishService(
+      mockDishRepo as any,
+      mockIngRepo as any
+    );
+  });
+
+  test('addDish: повинно успішно створити страву', () => {
+    const fakeIng = new Ingredient('ing_1', 'Тісто', '', true);
+    mockIngRepo.loadAll.mockReturnValue([fakeIng]);
+    mockDishRepo.loadAll.mockReturnValue([]);
+
+    const result = dishService.addDish('Піца', 150, 20, ['ing_1']);
+    expect(result.name).toBe('Піца');
+    expect(result.price).toBe(150);
+    expect(mockDishRepo.saveAll).toHaveBeenCalledTimes(1);
+  });
+
+  test('addDish: повинно викинути помилку, якщо інгредієнта не існує', () => {
+    mockIngRepo.loadAll.mockReturnValue([]); 
+
+    expect(() => {
+      dishService.addDish('Піца', 150, 20, ['fake_ing_id']);
+    }).toThrow(ValidationError);
+
+    expect(mockDishRepo.saveAll).not.toHaveBeenCalled();
+  });
+
+  test('addDish: повинно викинути помилку, якщо страва з такою назвою вже є', () => {
+
+    const fakeIng = new Ingredient('ing_1', 'Тісто', '', true);
+    mockIngRepo.loadAll.mockReturnValue([fakeIng]);
+
+    const existingDish = new Dish('d1', 'Піца', 100, 10, ['ing_1']);
+    mockDishRepo.loadAll.mockReturnValue([existingDish]);
+
+    expect(() => {
+      dishService.addDish('Піца', 200, 30, ['ing_1']);
+    }).toThrow(ValidationError);
   });
 });

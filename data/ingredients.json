@@ -16,5 +16,11 @@
     "name": "Тісто",
     "description": "",
     "isAvailable": true
+  },
+  {
+    "_id": "ing_miccz4cfdi0qc17x",
+    "_name": "Тестовий Сир",
+    "_description": "Смачний",
+    "_isAvailable": true
   }
 ]
